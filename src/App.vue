@@ -8,7 +8,14 @@
         Toggle Resizable {{ resizable }}
       </button>
     </div>
-    <Interact :id="56" :draggable="draggable" :resizable="resizable">
+    <Interact
+      :id="56"
+      :draggable="draggable"
+      :resizable="resizable"
+      :dragHold="hold"
+      :resizeHold="hold"
+      :resizeHandleSize="resizeHandleSize"
+    >
       <div class="content"></div>
     </Interact>
   </div>
@@ -25,7 +32,9 @@ export default {
   data() {
     return {
       draggable: true,
-      resizable: true
+      resizable: true,
+      hold: 0,
+      resizeHandleSize: 20
     };
   }
 };

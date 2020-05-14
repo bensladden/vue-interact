@@ -6,7 +6,7 @@
     <div
       :id="id + '-resizeTop'"
       :ref="id + '-resizeTop'"
-      class="resize-top"
+      class="resize resize-top"
       :style="{
         height: resizeHandleSize + 'px',
         top: -(resizeHandleSize / 2) + 'px',
@@ -23,7 +23,7 @@
     <div
       :id="id + '-resizeBottom'"
       :ref="id + '-resizeBottom'"
-      class="resize-bottom"
+      class="resize resize-bottom"
       :style="{
         height: resizeHandleSize + 'px',
         left: 0 + 'px',
@@ -40,7 +40,7 @@
     <div
       :id="id + '-resizeLeft'"
       :ref="id + '-resizeLeft'"
-      class="resize-left"
+      class="resize resize-left"
       :style="{
         width: resizeHandleSize + 'px',
         top: 0 + 'px',
@@ -57,7 +57,7 @@
     <div
       :id="id + '-resizeRight'"
       :ref="id + '-resizeRight'"
-      class="resize-right"
+      class="resize resize-right"
       :style="{
         width: resizeHandleSize + 'px',
         top: 0 + 'px',
@@ -74,7 +74,7 @@
     <div
       :id="id + '-resizeTopLeft'"
       :ref="id + '-resizeTopLeft'"
-      class="resize-left resize-top"
+      class="resize resize-left resize-top"
       :style="{
         width: resizeHandleSize * 2 + 'px',
         height: resizeHandleSize * 2 + 'px',
@@ -91,7 +91,7 @@
     <div
       :id="id + '-resizeTopRight'"
       :ref="id + '-resizeTopRight'"
-      class="resize-right resize-top"
+      class="resize resize-right resize-top"
       :style="{
         width: resizeHandleSize * 2 + 'px',
         height: resizeHandleSize * 2 + 'px',
@@ -108,7 +108,7 @@
     <div
       :id="id + '-resizeBottomRight'"
       :ref="id + '-resizeBottomRight'"
-      class="resize-right resize-bottom"
+      class="resize resize-right resize-bottom"
       :style="{
         width: resizeHandleSize * 2 + 'px',
         height: resizeHandleSize * 2 + 'px',
@@ -126,7 +126,7 @@
     <div
       :id="id + '-resizeBottomLeft'"
       :ref="id + '-resizeBottomLeft'"
-      class="resize-left resize-bottom"
+      class="resize resize-left resize-bottom"
       :style="{
         width: resizeHandleSize * 2 + 'px',
         height: resizeHandleSize * 2 + 'px',
@@ -154,7 +154,9 @@ export default {
     draggable: { type: Boolean, default: true },
     resizable: { type: Boolean, default: true },
     resizeEdges: { type: String, default: "bottom right" },
-    resizeHandleSize: { type: Number, default: 8 }
+    resizeHandleSize: { type: Number, default: 8 },
+    resizeHold: { type: Number, default: 0 },
+    dragHold: { type: Number, default: 0 }
   },
   data() {
     return {
@@ -163,14 +165,16 @@ export default {
       y: 0,
       top: 0,
       left: 0,
-      widthPx: 100,
-      heightPx: 100
+      widthPx: 200,
+      heightPx: 200
     };
   },
   methods: {
     setDraggable() {
       if (this.draggable) {
         this.interactInstance.draggable({
+          enabled: true,
+          hold: this.dragHold,
           listeners: {
             start: event => {
               this.onMoveStart(event);
@@ -190,6 +194,8 @@ export default {
     setResizable() {
       if (this.resizable) {
         this.interactInstance.resizable({
+          enabled: true,
+          hold: this.resizeHold,
           edges: {
             top: ".resize-top",
             left: ".resize-left",
@@ -306,6 +312,11 @@ export default {
   display: inline-block;
   transition: all 200ms ease;
   transition-property: left, top, right;
+  touch-action: none;
+  user-select: none;
+}
+
+.resize {
   touch-action: none;
   user-select: none;
 }
