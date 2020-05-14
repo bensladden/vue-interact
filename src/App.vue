@@ -7,13 +7,17 @@
       <button @click="resizable = !resizable">
         Toggle Resizable {{ resizable }}
       </button>
+      Resize Hold Time(ms):
+      <input type="number" v-model.number="resizeHoldTime" /> Drag Hold
+      Time(ms): <input type="number" v-model.number="dragHoldTime" /> Resize
+      Handle Size(ms): <input type="number" v-model.number="resizeHandleSize" />
     </div>
     <Interact
       :id="56"
       :draggable="draggable"
       :resizable="resizable"
-      :dragHold="hold"
-      :resizeHold="hold"
+      :dragHold="dragHoldTime"
+      :resizeHold="resizeHoldTime"
       :resizeHandleSize="resizeHandleSize"
     >
       <div class="content"></div>
@@ -33,7 +37,8 @@ export default {
     return {
       draggable: true,
       resizable: true,
-      hold: 0,
+      resizeHoldTime: 0,
+      dragHoldTime: 0,
       resizeHandleSize: 20
     };
   }

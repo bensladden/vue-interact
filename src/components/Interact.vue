@@ -292,6 +292,12 @@ export default {
     },
     resizable() {
       this.setResizable();
+    },
+    dragHold() {
+      this.setDraggable();
+    },
+    resizeHold() {
+      this.setResizable();
     }
   },
   mounted() {
