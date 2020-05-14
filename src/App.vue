@@ -1,27 +1,48 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div>
+      <button @click="draggable = !draggable">
+        Toggle Draggable {{ draggable }}
+      </button>
+      <button @click="resizable = !resizable">
+        Toggle Resizable {{ resizable }}
+      </button>
+    </div>
+    <Interact :id="56" :draggable="draggable" :resizable="resizable">
+      <div class="content"></div>
+    </Interact>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Interact from "./components/Interact";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    Interact
+  },
+  data() {
+    return {
+      draggable: true,
+      resizable: true
+    };
   }
 };
 </script>
 
 <style>
+.content {
+  height: 100%;
+  width: 100%;
+  border: 2px solid #42b983;
+  border-radius: 5px;
+  background-color: #42b9833d;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
